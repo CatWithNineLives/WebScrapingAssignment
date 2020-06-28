@@ -115,7 +115,7 @@ def form_input():
 #change absolute xpaths to relative xpaths    
 def form_output():
     #details of driving license table
-    details_driving_license=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/table[1]/tbody')
+    details_driving_license=driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt124"]/table[1]/tbody')
     data1=[]
     table1_data_rows=details_driving_license.find_elements_by_tag_name("tr")
 
@@ -123,16 +123,11 @@ def form_output():
     for tr in table1_data_rows:
         for td in tr.find_elements_by_tag_name("td"):
             data1.append(td.text)
-
-
-    #alternate values of rows are field names and their values, saving in an array
-    '''for i in range(0,len(data1),2):
-        field_names.append(data1[i])'''
     
     for i in range(1,len(data1),2):
         values.append(data1[i])
 
-    driving_license_validity1=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/table[2]/tbody')
+    driving_license_validity1=driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt124"]/table[2]/tbody')
     data2=[]
     table2_data_rows=driving_license_validity1.find_elements_by_tag_name("tr")
 
@@ -140,15 +135,12 @@ def form_output():
         for td in tr.find_elements_by_tag_name("td"):
             data2.append(td.text)
 
-    driving_license_validity2=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/table[3]/tbody/tr')
+    driving_license_validity2=driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt124"]/table[3]/tbody')
     for td in driving_license_validity2.find_elements_by_tag_name("td"):
             data2.append(td.text)
     
-    '''indices=[0,3,6,8]
-    for i in indices:
-        field_names.append(data2[i])'''
     values.append([data2[1],data2[2]]) #two lists as values for field_names 'Non-Transport' and 'Transport'
-    values.append([data2[4],data2[5]])
+    values.append([data2[4],data2[5]])  
     values.append(data2[7])
     values.append(data2[9])
 
@@ -164,7 +156,7 @@ def form_output():
         field_names.append(th.text)
     #print(headings2)
     '''
-    vehicle_details=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/div[4]/div/table/tbody/tr').find_elements_by_tag_name('td')
+    vehicle_details=driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt187_data"]').find_elements_by_tag_name('td')
     #data3=[]
     for td in vehicle_details:
         #data3.append(td.text)
@@ -238,7 +230,7 @@ while(condition):
         #print("DL error ",error_message_exists) 
         if(not error_message_exists):              
             form_output()
-            print(field_names)                                           #scrape the form's output from the webpage
+            #print(field_names)                                           #scrape the form's output from the webpage
             output=dict(zip(field_names,values))
             print(output)
 
