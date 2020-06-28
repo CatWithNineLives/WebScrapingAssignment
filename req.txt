@@ -1,0 +1,152 @@
+
+import requests
+
+
+r=requests.get('https://parivahan.gov.in/rcdlstatus/?pur_cd=101')
+
+if r.status_code == 200:
+	print(r.text)
+
+
+
+<div id="form_rcdl:j_idt15" class="ui-outputpanel ui-widget">
+                                <div class="ui-grid-row bottom-space">
+                                    <div class="ui-grid-col-4 resp-blank-height"></div>
+                                    <div class="ui-grid-col-2">
+                                        <label class="field-label resp-label-section"><label id="form_rcdl:j_idt17" class="ui-outputlabel ui-widget top-space field-label-mandate" for="form_rcdl:tf_dlNO">Driving Licence No.<span class="ui-outputlabel-rfi">*</span></label>
+                                        </label>
+                                    </div>
+                                    <div class="ui-grid-col-3"><input id="form_rcdl:tf_dlNO" name="form_rcdl:tf_dlNO" type="text" autocomplete="off" maxlength="20" placeholder="DL-12345678901234" size="16" onchange="PrimeFaces.ab({s:&quot;form_rcdl:tf_dlNO&quot;,e:&quot;valueChange&quot;,p:&quot;form_rcdl:tf_dlNO&quot;,u:&quot;form_rcdl:tf_dlNO&quot;});" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all input" role="textbox" aria-disabled="false" aria-readonly="false">
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row bottom-space">
+                                    <div class="ui-grid-col-4 resp-blank-height"></div>
+                                    <div class="ui-grid-col-2">
+                                        <label class="field-label resp-label-section right-position"><label id="form_rcdl:j_idt22" class="ui-outputlabel ui-widget top-space field-label-mandate" for="form_rcdl:tf_dob_input">Date Of Birth<span class="ui-outputlabel-rfi">*</span></label>
+                                        </label>
+                                    </div>
+                                    <div class="ui-grid-col-3"><span id="form_rcdl:tf_dob" class="ui-calendar input"><input id="form_rcdl:tf_dob_input" name="form_rcdl:tf_dob_input" type="text" aria-required="true" class="ui-inputfield ui-widget ui-state-default ui-corner-all hasDatepicker" autocomplete="off" maxlength="12" placeholder="31-01-1990" onchange="PrimeFaces.ab({s:&quot;form_rcdl:tf_dob&quot;,e:&quot;valueChange&quot;,p:&quot;form_rcdl:tf_dob&quot;,u:&quot;form_rcdl:tf_dob&quot;,ps:true});" aria-labelledby="form_rcdl:j_idt22" role="textbox" aria-disabled="false" aria-readonly="false"></span>
+                                    </div>
+                                </div></div>
+
+
+                                #driver's license taking input
+                                <label id="form_rcdl:j_idt17" class="ui-outputlabel ui-widget top-space field-label-mandate" for="form_rcdl:tf_dlNO">Driving Licence No.<span class="ui-outputlabel-rfi">*</span></label>
+                                #driver's license
+                                <div class="ui-grid-col-3"><input id="form_rcdl:tf_dlNO" name="form_rcdl:tf_dlNO" type="text" autocomplete="off" maxlength="20" placeholder="DL-12345678901234" size="16" onchange="PrimeFaces.ab({s:&quot;form_rcdl:tf_dlNO&quot;,e:&quot;valueChange&quot;,p:&quot;form_rcdl:tf_dlNO&quot;,u:&quot;form_rcdl:tf_dlNO&quot;});" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all input" role="textbox" aria-disabled="false" aria-readonly="false">
+                                    </div>
+                               
+                                #dob taking input
+                                <label id="form_rcdl:j_idt22" class="ui-outputlabel ui-widget top-space field-label-mandate" for="form_rcdl:tf_dob_input">Date Of Birth<span class="ui-outputlabel-rfi">*</span></label>
+                                #dob        
+                                <span id="form_rcdl:tf_dob" class="ui-calendar input"><input id="form_rcdl:tf_dob_input" name="form_rcdl:tf_dob_input" type="text" aria-required="true" class="ui-inputfield ui-widget ui-state-default ui-corner-all hasDatepicker" autocomplete="off" maxlength="12" placeholder="31-01-1990" onchange="PrimeFaces.ab({s:&quot;form_rcdl:tf_dob&quot;,e:&quot;valueChange&quot;,p:&quot;form_rcdl:tf_dob&quot;,u:&quot;form_rcdl:tf_dob&quot;,ps:true});" aria-labelledby="form_rcdl:j_idt22" role="textbox" aria-disabled="false" aria-readonly="false"></span>
+                                
+                                #verification code
+                                <label id="form_rcdl:j_idt32:j_idt35" class="ui-outputlabel ui-widget" for="form_rcdl:j_idt32:CaptchaID">Enter Verification Code<span class="ui-outputlabel-rfi">*</span></label>
+
+                                #captcha image
+                                <img id="form_rcdl:j_idt32:j_idt38" src="/rcdlstatus/DispplayCaptcha?txtp_cd=1&amp;bkgp_cd=2&amp;noise_cd=2&amp;gimp_cd=3&amp;txtp_length=5&amp;pfdrid_c=true?-8480137&amp;pfdrid_c=true" alt="">
+                                
+                                #captcha text                                
+                                <input id="form_rcdl:j_idt32:CaptchaID" name="form_rcdl:j_idt32:CaptchaID" type="text" value="" autocomplete="off" maxlength="5" size="10" onblur="mojarra.ab('form_rcdl:j_idt32:CaptchaID',event,'blur','@this','@this',{'CLIENT_BEHAVIOR_RENDERING_MODE':'OBSTRUSIVE'})" style="width: 67% !important;" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false">
+                                
+                                #check status
+                                <button id="form_rcdl:j_idt43" name="form_rcdl:j_idt43" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="PrimeFaces.ab({s:&quot;form_rcdl:j_idt43&quot;,u:&quot;form_rcdl:pnl_show form_rcdl:pg_show form_rcdl:rcdl_pnl&quot;,onst:function(cfg){PF('block_ui').show();;},onsu:function(data,status,xhr){PF('block_ui').hide();;}});return false;" type="submit" role="button" aria-disabled="false"><span class="ui-button-text ui-c">Check Status</span></button>
+
+
+                
+                                #reset
+                                <button id="form_rcdl:rest_bt" name="form_rcdl:rest_bt" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" type="submit" role="button" aria-disabled="false"><span class="ui-button-text ui-c">Reset</span></button>
+
+
+                                <table class="table table-responsive table-striped table-condensed table-bordered">
+                            <tbody><tr>
+                                <td style="width: 15%;"><span class="font-bold">Current Status:</span></td>
+                                <td><span class="">ACTIVE</span></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%;"><span class="font-bold">Holder's Name:</span></td>
+                                <td>ANURAG           BREJA</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%;"><span class="font-bold">Date Of Issue:</span></td>
+                                <td>01-Mar-2011</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%;"><span class="font-bold">Last Transaction At:</span></td>
+                                <td>ZONAL OFFICE, WEST DELHI, JANAKPURI</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%;"><span class="font-bold">Old / New DL No.:</span></td>
+                                <td>DL-0420110149646</td>
+                            </tr>
+                        </tbody></table>
+
+
+
+                        <table class="table table-responsive table-striped table-condensed table-bordered data-table" style="margin-bottom: 0px;">
+                            <tbody><tr>
+                                <td style="width: 33%;"><span class="font-bold">Non-Transport</span></td>
+                                <td style="width: 33%;"><span class="font-bold">From: </span>01-Mar-2011</td>
+                                <td style="width: 33%;"><span class="font-bold">To: </span>08-Feb-2026</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 33%;"><span class="font-bold">Transport</span></td>
+                                <td style="width: 33%;"><span class="font-bold">From: </span>NA</td>
+                                <td style="width: 33%;"><span class="font-bold">To: </span>NA</td>
+                            </tr>
+                        </tbody></table>
+
+
+                        <table class="table table-responsive table-striped table-condensed table-bordered data-table" style="margin-top: 0px;">
+                            <tbody><tr>
+                                <td style="width: 25%;"><span class="font-bold">Hazardous Valid Till:</span></td>
+                                <td style="width: 25%;">NA</td>
+                                <td style="width: 25%;"><span class="font-bold">Hill Valid Till:</span></td>
+                                <td style="width: 25%;">NA</td>
+                            </tr>
+                        </tbody></table>
+
+                       <table role="grid"><thead id="form_rcdl:j_idt187_head"><tr role="row"><th id="form_rcdl:j_idt187:j_idt188" class="ui-state-default" role="columnheader" aria-label="COV Category"><span class="ui-column-title">COV Category</span></th><th id="form_rcdl:j_idt187:j_idt190" class="ui-state-default" role="columnheader" aria-label="Class Of Vehicle"><span class="ui-column-title">Class Of Vehicle</span></th><th id="form_rcdl:j_idt187:j_idt192" class="ui-state-default" role="columnheader" aria-label="COV Issue Date"><span class="ui-column-title">COV Issue Date</span></th></tr></thead><tbody id="form_rcdl:j_idt187_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell">NT</td><td role="gridcell">ADPVEH</td><td role="gridcell">01-Mar-2011</td></tr></tbody></table>
+
+
+
+                       <div class="ui-datatable-tablewrapper"><table role="grid"><thead id="form_rcdl:j_idt187_head"><tr role="row"><th id="form_rcdl:j_idt187:j_idt188" class="ui-state-default" role="columnheader" aria-label="COV Category"><span class="ui-column-title">COV Category</span></th><th id="form_rcdl:j_idt187:j_idt190" class="ui-state-default" role="columnheader" aria-label="Class Of Vehicle"><span class="ui-column-title">Class Of Vehicle</span></th><th id="form_rcdl:j_idt187:j_idt192" class="ui-state-default" role="columnheader" aria-label="COV Issue Date"><span class="ui-column-title">COV Issue Date</span></th></tr></thead><tbody id="form_rcdl:j_idt187_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell">NT</td><td role="gridcell">ADPVEH</td><td role="gridcell">01-Mar-2011</td></tr></tbody></table></div>
+
+
+                       <div id="form_rcdl:j_idt187" class="ui-datatable ui-widget top-space bottom-space" style="width: 100%;"><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="form_rcdl:j_idt187_head"><tr role="row"><th id="form_rcdl:j_idt187:j_idt188" class="ui-state-default" role="columnheader" aria-label="COV Category"><span class="ui-column-title">COV Category</span></th><th id="form_rcdl:j_idt187:j_idt190" class="ui-state-default" role="columnheader" aria-label="Class Of Vehicle"><span class="ui-column-title">Class Of Vehicle</span></th><th id="form_rcdl:j_idt187:j_idt192" class="ui-state-default" role="columnheader" aria-label="COV Issue Date"><span class="ui-column-title">COV Issue Date</span></th></tr></thead><tbody id="form_rcdl:j_idt187_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell">NT</td><td role="gridcell">ADPVEH</td><td role="gridcell">01-Mar-2011</td></tr></tbody></table></div></div>
+
+
+
+                       <div class="ui-grid-col-2">
+<label class="field-label resp-label-section right-position">
+<label id="form_rcdl:j_idt22" class="ui-outputlabel ui-widget top-space field-label-mandate" for="form_rcdl:tf_dob_input">Date Of Birth
+<span class="ui-outputlabel-rfi">*</span></label>
+                                        </label>
+                                    </div>
+
+
+
+#print(soup.title.text)
+
+# for link in soup.find_all("a"):
+#     print("Inner Text: {}".format(link.text))
+#     print("Title: {}".format(link.get("title")))
+#     print("href: {}".format(link.get("href")))
+
+
+
+
+
+No DL details found
+
+/html/body/div[3]
+
+/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[3]/div/div[2]/div/div[2]/table/tbody/tr/td[3]/input
+
+
+reset button id id="form_rcdl:rest_bt"
+check status button id="form_rcdl:j_idt43"
+
+
+/html/body/div[3]/div[1]/a
