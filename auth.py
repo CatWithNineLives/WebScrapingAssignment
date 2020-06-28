@@ -21,41 +21,42 @@ driver.implicitly_wait(30)
 # check_button=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/div/button[1]/span')
 # reset_button=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/div/button[2]')
 
-license="DL-0420110149646"
-dob="09-02-1976"
+license=""
+dob=""
 captcha_text=""
-field_names=["Driver's License No.","Date Of Birth"]
+#field names used for every valid entry
+field_names=["Driver's License No.", 'Date Of Birth', 'Current Status:', "Holder's Name:", 'Date Of Issue:', 'Last Transaction At:', 'Old / New DL No.:', 'Non-Transport', 'Transport', 'Hazardous Valid Till:', 'Hill Valid Till:', 'COV Category', 'Class Of Vehicle', 'COV Issue Date']
 values=[]
 
 
-# def validate_input(drivers_license,dateofbirth):
-#     #validate license
-#     if(len(drivers_license)!=16):
-#         return False
-#     if(not drivers_license[0:2].isalpha()):
-#         return False
-#     if(drivers_license[2]!='-' and  drivers_license[4]!=' '):    
-#         return False
-#     if(not drivers_license[3:].isdigit() and not drivers_license[5:].isdigit()):
-#         return False
-#     global license
-#     license=drivers_license
+def validate_input(drivers_license,dateofbirth):
+    #validate license
+    if(len(drivers_license)!=16):
+        return False
+    if(not drivers_license[0:2].isalpha()):
+        return False
+    if(drivers_license[2]!='-' and  drivers_license[4]!=' '):    
+        return False
+    if(not drivers_license[3:].isdigit() and not drivers_license[5:].isdigit()):
+        return False
+    global license
+    license=drivers_license
     
-#     #validate date 
-#     try:     
-#         DOB=datetime.datetime(int(dateofbirth[6:10]),int(dateofbirth[3:5]),int(dateofbirth[:2]))    
-#     except ValueError:
-#         return False
-#     global dob    
-#     dob=dateofbirth
-#     return True     #valid input   
+    #validate date 
+    try:     
+        DOB=datetime.datetime(int(dateofbirth[6:10]),int(dateofbirth[3:5]),int(dateofbirth[:2]))    
+    except ValueError:
+        return False
+    global dob    
+    dob=dateofbirth
+    return True     #valid input   
 
 def take_input():
-    # drivers_license=input("Enter the Driver's License No. The format is SS-RRYYYYNNNNNNN or SSRR YYYYNNNNNNN. \n Where : SS- Two character state code,\n RR- RTO,\n YYYY- year and NNNNNNN digits. : ")
-    # dateofbirth=input("Enter date of birth DD-MM-YYYY : ")
-    # if(not validate_input(drivers_license,dateofbirth)):
-    #     print("Incorrect format of input")
-    #     return False
+    drivers_license=input("Enter the Driver's License No. The format is SS-RRYYYYNNNNNNN or SSRR YYYYNNNNNNN. \n Where : SS- Two character state code,\n RR- RTO,\n YYYY- year and NNNNNNN digits. : ")
+    dateofbirth=input("Enter date of birth DD-MM-YYYY : ")
+    if(not validate_input(drivers_license,dateofbirth)):
+        print("Incorrect format of input")
+        return False
     return True
 
 # def test_valid():
@@ -107,9 +108,11 @@ def form_input():
     print("Filled dob")
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt32:CaptchaID']").send_keys(captcha_text)
     print("Filled captcha")
+    time.sleep(10)
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt43']").click()
     print("clicked on check status")
-    
+
+#change absolute xpaths to relative xpaths    
 def form_output():
     #details of driving license table
     details_driving_license=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/table[1]/tbody')
@@ -123,8 +126,9 @@ def form_output():
 
 
     #alternate values of rows are field names and their values, saving in an array
-    for i in range(0,len(data1),2):
-        field_names.append(data1[i])
+    '''for i in range(0,len(data1),2):
+        field_names.append(data1[i])'''
+    
     for i in range(1,len(data1),2):
         values.append(data1[i])
 
@@ -140,15 +144,15 @@ def form_output():
     for td in driving_license_validity2.find_elements_by_tag_name("td"):
             data2.append(td.text)
     
-    indices=[0,3,6,8]
+    '''indices=[0,3,6,8]
     for i in indices:
-        field_names.append(data2[i])
+        field_names.append(data2[i])'''
     values.append([data2[1],data2[2]]) #two lists as values for field_names 'Non-Transport' and 'Transport'
     values.append([data2[4],data2[5]])
     values.append(data2[7])
     values.append(data2[9])
 
-
+    '''
     vehicle_details_headings=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/div[4]/div/table/thead/tr').find_elements_by_tag_name('th')
     headings2=[]
     #table3_data_rows=details_driving_license.find_elements_by_tag_name("tr")
@@ -159,11 +163,11 @@ def form_output():
         headings2.append(th.text)
         field_names.append(th.text)
     #print(headings2)
-    
+    '''
     vehicle_details=driver.find_element_by_xpath('/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[4]/span/div/div/div/div/div/div[4]/div/table/tbody/tr').find_elements_by_tag_name('td')
-    data3=[]
+    #data3=[]
     for td in vehicle_details:
-        data3.append(td.text)
+        #data3.append(td.text)
         values.append(td.text)
         
 
@@ -183,7 +187,8 @@ while(condition):
     if(take_input()):
         values=[license,dob]
         get_captcha()                                               #get captcha from user
-        form_input()                                                #fill the form
+        form_input()        
+        time.sleep(10)                                        #fill the form
         #driver.implicitly_wait(40)
         error_message_exists=check_exists_by_xpath(xpath1)
         print("error1",error_message_exists)        
@@ -196,18 +201,19 @@ while(condition):
         while(error_message_exists):                                #error message exists, incorrect captcha take value again   
             print("ERROR : Incorrect captcha!!")
             get_captcha()
-            time.sleep(10)
+            #time.sleep(10)
             input_captcha()
-            if(error_message_exists):
-                print("Error message before clicking")
+            time.sleep(10)
             driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt43"]').click()   #clicking on check status button
             print("clicked on check status")
-            try:    
+            time.sleep(10)
+            '''try:    
                 form_output()                                           #scrape the form's output from the webpage
                 output=dict(zip(field_names,values))
                 print(output)
             except NoSuchElementException:
                 print("No such element exception inside loop for table")
+            '''
             #tic=time.time()
             #driver.implicitly_wait(60)                                             #waiting for page to load
             #toc=time.time()
@@ -227,11 +233,12 @@ while(condition):
             json.dump(output,outfile)
         '''
         
-        
+        time.sleep(10)
         error_message_exists=check_exists_by_xpath(xpath2)
-        print("DL error ",error_message_exists) 
+        #print("DL error ",error_message_exists) 
         if(not error_message_exists):              
-            form_output()                                           #scrape the form's output from the webpage
+            form_output()
+            print(field_names)                                           #scrape the form's output from the webpage
             output=dict(zip(field_names,values))
             print(output)
 
