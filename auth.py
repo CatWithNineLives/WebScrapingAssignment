@@ -42,7 +42,9 @@ def validate_input(drivers_license,dateofbirth):
     global license
     license=drivers_license
     
-    #validate date 
+    #validate date format DD-MM-YYYY
+    if(dateofbirth[2]!='-' or dateofbirth[5]!='-'):
+        return False
     try:     
         DOB=datetime.datetime(int(dateofbirth[6:10]),int(dateofbirth[3:5]),int(dateofbirth[:2]))    
     except ValueError:
@@ -78,10 +80,10 @@ def get_captcha():
 def input_captcha():
     #driver.implicitly_wait(30)
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt32:CaptchaID']").clear()
-    print("cleared captcha")
+    #print("cleared captcha")
     time.sleep(10)
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt32:CaptchaID']").send_keys(captcha_text)
-    print("filled captcha")
+    #print("filled captcha")
 
 # def check_exists_by_id(id):
 #     try:
@@ -92,25 +94,25 @@ def input_captcha():
 #     return True
 
 def check_exists_by_xpath(xpath):
-    print("Inside check exists xpath",xpath)
+    #print("Inside check exists xpath",xpath)
     try:
         driver.find_element_by_xpath(xpath)
     except NoSuchElementException:
-        print("No such element exception")
+        #print("No such element exception")
         return False
     return True
 
 
 def form_input():
     driver.find_element_by_xpath("//*[@id='form_rcdl:tf_dlNO']").send_keys(license)
-    print("Filled license")
+    #print("Filled license")
     driver.find_element_by_xpath("//*[@id='form_rcdl:tf_dob_input']").send_keys(dob)
-    print("Filled dob")
+    #print("Filled dob")
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt32:CaptchaID']").send_keys(captcha_text)
-    print("Filled captcha")
+    #print("Filled captcha")
     time.sleep(10)
     driver.find_element_by_xpath("//*[@id='form_rcdl:j_idt43']").click()
-    print("clicked on check status")
+    #print("clicked on check status")
 
 #change absolute xpaths to relative xpaths    
 def form_output():
@@ -183,7 +185,7 @@ while(condition):
         time.sleep(10)                                        #fill the form
         #driver.implicitly_wait(40)
         error_message_exists=check_exists_by_xpath(xpath1)
-        print("error1",error_message_exists)        
+        #print("error1",error_message_exists)        
         
         '''if(not error_message_exists):
             form_output()                                           #scrape the form's output from the webpage
@@ -197,33 +199,11 @@ while(condition):
             input_captcha()
             time.sleep(10)
             driver.find_element_by_xpath('//*[@id="form_rcdl:j_idt43"]').click()   #clicking on check status button
-            print("clicked on check status")
+            #print("clicked on check status")
             time.sleep(10)
-            '''try:    
-                form_output()                                           #scrape the form's output from the webpage
-                output=dict(zip(field_names,values))
-                print(output)
-            except NoSuchElementException:
-                print("No such element exception inside loop for table")
-            '''
-            #tic=time.time()
-            #driver.implicitly_wait(60)                                             #waiting for page to load
-            #toc=time.time()
-            #print("time elapsed", (toc-tic))
-
-            #xpath1='/html/body/form/div[1]/div[3]/div[1]/div/div[2]/div[1]/div/ul/li/span[1]' 
             error_message_exists=check_exists_by_xpath(xpath1)
             
-            print("Does error message exist? ",error_message_exists)
-        
-        '''
-        form_output()                                           #scrape the form's output from the webpage
-        output=dict(zip(field_names,values))
-        print(output)
-
-        with open("output_table.json","w") as outfile:
-            json.dump(output,outfile)
-        '''
+            #print("Does error message exist? ",error_message_exists)
         
         time.sleep(10)
         error_message_exists=check_exists_by_xpath(xpath2)
